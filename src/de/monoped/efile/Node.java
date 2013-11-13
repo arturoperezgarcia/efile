@@ -25,20 +25,26 @@ public class Node {
     String name;
     ArrayList<Node> children;
 
+    //----------------------------------------------------------------------
+
     Node(Node parent, String name) {
         this.name = name;
         this.parent = parent;
         children = new ArrayList<Node>();
     }
 
+    //----------------------------------------------------------------------
+
     Node addChild(Node child) {
         children.add(child);
         return child;
     }
 
+    //----------------------------------------------------------------------
+
     Node getChild(String name) {
-        for (Iterator it = children.iterator(); it.hasNext(); ) {
-            Node child = (Node) it.next();
+        for (Iterator<Node> it = children.iterator(); it.hasNext(); ) {
+            Node child = it.next();
             String childName = child.getName();
 
             if (childName.endsWith("/"))
@@ -51,9 +57,13 @@ public class Node {
         return null;
     }
 
+    //----------------------------------------------------------------------
+
     String getName() {
         return name;
     }
+
+    //----------------------------------------------------------------------
 
     String getPath() {
         if (parent == null)
@@ -68,28 +78,38 @@ public class Node {
         return s;
     }
 
+    //----------------------------------------------------------------------
+
     Node getParent() {
         return parent;
     }
+
+    //----------------------------------------------------------------------
 
     boolean isDirectory() {
         return children.size() > 0;
     }
 
+    //----------------------------------------------------------------------
+
     public Iterator iterator() {
         return children.iterator();
     }
+
+    //----------------------------------------------------------------------
 
     public String toString() {
         return name;
     }
 
+    //----------------------------------------------------------------------
+
     void treeToString(StringBuffer s) {
         s.append(getPath()).append("\n");
 
         if (isDirectory())
-            for (Iterator it = children.iterator(); it.hasNext(); )
-                ((Node) it.next()).treeToString(s);
+            for (Iterator<Node> it = children.iterator(); it.hasNext(); )
+                it.next().treeToString(s);
     }
 }
 
